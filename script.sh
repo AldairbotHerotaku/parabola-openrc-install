@@ -530,6 +530,35 @@ passwd $user
 gpasswd -a $user wheel
 gpasswd -a $user video
 gpasswd -a $user audio
+if [ -d /home/$user ];
+then
+cat > /home/$user/.bashrc <<EOF
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startxfce4
+EOF
+else
+mkdir /home/$user/
+cat > /home/$user/.bashrc <<EOF
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startxfce4
+EOF
+fi
 cat > /etc/sudoers <<EOF
 ## sudoers file.
 ##
