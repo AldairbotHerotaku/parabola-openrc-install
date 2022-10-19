@@ -246,7 +246,7 @@ mkswap /dev/sda2
 mkfs.ext4 /dev/sda3
 # Mount and make boot
 mount /dev/sda3 /mnt
-make /mnt/boot
+mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 
 #
